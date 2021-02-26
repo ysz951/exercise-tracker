@@ -63,13 +63,13 @@ router.post('/profile-img-upload', (req, res) => {
     // console.log( 'error', error );
     if (error) {
       console.log('errors', error);
-      res.json({ error: error });
+      res.status(400).json({ error: error });
     }
     else {
       // If File not found
       if (req.file === undefined) {
         console.log('Error: No File Selected!');
-        res.json('Error: No File Selected');
+        res.status(400).json('Error: No File Selected');
       }
       else {
         // If Success

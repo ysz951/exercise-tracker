@@ -1,12 +1,14 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+let User = require('../models/user.model');
 
 const AuthService = {
-  getUserWithUserName(db, user_name) {
-    return db('dontforget_users')
-      .where({ user_name })
-      .first()
+  getUserWithUserName(user_name) {
+    return User.findOne({ username: user_name })
+    // return db('dontforget_users')
+    //   .where({ user_name })
+    //   .first()
   },
   comparePasswords(password, hash) {
     return bcrypt.compare(password, hash)
