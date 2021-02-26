@@ -7,8 +7,8 @@ const jsonBodyParser = express.json();
 
 authRouter
   .post('/login', jsonBodyParser, (req, res, next) => {
-    const { user_name, password } = req.body
-    const loginUser = { user_name, password }
+    const { username, password } = req.body
+    const loginUser = { username, password }
     
     for (const [key, value] of Object.entries(loginUser)) {
       if (value == null) {
@@ -17,7 +17,7 @@ authRouter
         });
       }
     }
-    User.findOne({ username: user_name })
+    User.findOne({ username: username })
       .then(mem => {
         if (!mem) {
           throw new Error("Incorrect user_name");

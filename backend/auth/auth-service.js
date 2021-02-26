@@ -4,8 +4,8 @@ const config = require('../config');
 let User = require('../models/user.model');
 
 const AuthService = {
-  getUserWithUserName(user_name) {
-    return User.findOne({ username: user_name })
+  getUserWithUserName(username) {
+    return User.findOne({ username: username })
     // return db('dontforget_users')
     //   .where({ user_name })
     //   .first()
