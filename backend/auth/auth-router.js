@@ -1,14 +1,14 @@
 const express = require('express');
 const AuthService = require('./auth-service');
 const { requireAuth } = require('../middleware/jwt-auth');
-let Member = require('../models/member.model');
+let User = require('../models/user.model');
 const authRouter = express.Router();
 const jsonBodyParser = express.json();
 
 authRouter
   .post('/login', jsonBodyParser, (req, res, next) => {
-    const { user_name, password } = req.body
-    const loginUser = { user_name, password }
+    const { username, password } = req.body
+    const loginUser = { username, password }
     
     for (const [key, value] of Object.entries(loginUser)) {
       if (value == null) {
@@ -17,7 +17,7 @@ authRouter
         });
       }
     }
-    Member.findOne({ username: user_name })
+    User.findOne({ username: username })
       .then(mem => {
         if (!mem) {
           throw new Error("Incorrect user_name");
@@ -45,8 +45,10 @@ authRouter
   })
 
 authRouter.post('/refresh', requireAuth, (req, res) => {
-  const sub = req.user.user_name;
+  const sub = req.user.username;
   const payload = { user_id: req.user.id };
+  // console.log(req.user.id)
+  // res.end()
   res.send({
     authToken: AuthService.createJwt(sub, payload),
   });
