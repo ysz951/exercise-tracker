@@ -5,18 +5,19 @@ class CreateUsers extends Component {
     constructor(props) {
         super(props)
 
-        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.ChangeHandler = this.ChangeHandler.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
     
         this.state = {
              username:'',
+             password:''
         }
     }
 
-    onChangeUsername(e){
+    ChangeHandler(e){
         this.setState({
-            username:e.target.value
+            [e.target.name]:e.target.value
         });
     }
     onSubmit(e){
@@ -24,6 +25,7 @@ class CreateUsers extends Component {
 
         const user = {
           username: this.state.username,
+          password: this.state.password
         }
         console.log(user)
 
@@ -45,8 +47,20 @@ class CreateUsers extends Component {
                     type="text"
                     required
                     className="form-control"
+                    name="username"
                     value={this.state.username}
-                    onChange={this.onChangeUsername}
+                    onChange={this.ChangeHandler}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Password: </label>
+                    <input
+                    type="password"
+                    required
+                    name="password"
+                    className="form-control"
+                    value={this.state.password}
+                    onChange={this.ChangeHandler}
                     />
                 </div>
                 <div className="form-group">
