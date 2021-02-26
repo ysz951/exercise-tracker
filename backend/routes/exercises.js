@@ -1,7 +1,8 @@
 const router = require('express').Router();
 let Exercise = require('../models/exercise.model');
+const { requireAuth } = require('../middleware/jwt-auth');
 
-router.route('/').get((req, res) => {
+router.route('/').get(requireAuth,(req, res) => {
   Exercise.find()
     .then(exercises => res.json(exercises))
     .catch(err => res.status(400).json('Error: ' + err));

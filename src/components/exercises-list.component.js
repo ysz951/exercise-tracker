@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-
+import TokenService from "../services/token-service";
+const option = {
+    headers: {
+        Authorization: 'Bearer ' + TokenService.getAuthToken()
+    }
+};
 
 //Functional react component
 const Exercise = props => (
@@ -30,7 +35,7 @@ export default class ExercisesList extends Component {
     
 
     componentDidMount(){
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('http://localhost:5000/exercises/', option)
             .then(response => {
                 this.setState({ exercises: response.data})
             })
