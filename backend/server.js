@@ -7,6 +7,7 @@ const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
 const authRouter = require('./auth/auth-router');
 const memberRouter = require('./routes/member');
+const awsRouter = require( './aws-router' );
 const {ATLAS_URI} = require('./config');
 
 const app = express();
@@ -30,7 +31,7 @@ app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 app.use('/members', memberRouter);
 app.use('/api/auth', authRouter);
-
+app.use( '/api/aws', awsRouter);
 //starts server
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
